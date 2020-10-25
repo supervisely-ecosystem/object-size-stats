@@ -1,4 +1,4 @@
-# TODO
+o# TODO
 only for bitmap/rectangle/polygon - other objects are ignored
 
 
