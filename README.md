@@ -25,6 +25,8 @@ Data Exploration Tools provide deep understanding of your data and are crucial f
 
 This app generates report with detailed statistics for objects **(`Bitmap` / `Rectangle` / `Polygon`, objects of other shapes are ignored)** in images project. It allows to see big picture as well as shed light on hidden patterns and edge cases (see <a href="#how-to-use">How to use</a> section). 
 
+<img src="https://media.giphy.com/media/7H3Xx4sMmmnjHT6aLv/giphy.gif" width="600"/>
+
 
 ## How To Run
 
