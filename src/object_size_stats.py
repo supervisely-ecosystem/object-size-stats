@@ -167,6 +167,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     overview_columns = ["#", "class name", "objects count",
                         "min h (px)", "min h (%)", "max h (px)", "max h (%)", "avg h (px)", "avg h (%)",
                         "min w (px)", "min w (%)", "max w (px)", "max w (%)", "avg w (px)", "avg w (%)",
+                        "min area (%)", "max area (%)", "avg area (%)",
                         ]
     overviewTable = {
         "columns": overview_columns,
@@ -183,6 +184,8 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                 min(class_widths_px[class_name]), min(class_widths_norm[class_name]),
                 max(class_widths_px[class_name]), max(class_widths_norm[class_name]),
                 round(mean(class_widths_px[class_name]), 2), round(mean(class_widths_norm[class_name]), 2),
+                round(min(class_areas_norm[class_name]), 2), round(max(class_areas_norm[class_name]), 2),
+                round(mean(class_areas_norm[class_name]), 2)
             ])
         else:
             row.extend([None] * 12)
