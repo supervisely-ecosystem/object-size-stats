@@ -107,23 +107,9 @@ Columns:
 * `MAX W (%)` - maximum object width (in percent of image width)
 * `AVG W (PX)` - average object width (in pixels)
 * `AVG W (%)` - average object width (in percent of image width)
-* `MIN AREA (PX)` - minimum object width (in pixels)
-* `MIN W (%)` - minimum object width (in percent of image width)
-* `MAX W (PX)` - maximum object width (in pixels)
-* `MAX W (%)` - maximum object width (in percent of image width)
-* `AVG W (PX)` - average object width (in pixels)
-* `AVG W (%)` - average object width (in percent of image width)
-
-* `IMAGE` - name of the image (clickable URL) on which this object is
-* `DATASET` - dataset name
-* `IMAGE SIZE (HW)` - image resolution in pixels (height * width)
-* `HEIGHT (PX)` - object height in pixels
-* `HEIGHT (%)` - object height (percentage of image height)
-* `WIDTH (PX)` - object width in pixels
-* `WIDTH (%)` - object width (percentage of image width)
-* `AREA (PX)` - object area in pixels
-* `AREA (%)` - object area (percentage of image area)
-
+* `MIN AREA (%)` - minimum object area (in percent of image area)
+* `MAX AREA (%)` - maximum object area (in percent of image area)
+* `AVG AREA (%)` - average object area (in percent of image area)
 
 ### Height distribution
 
