@@ -28,9 +28,9 @@ only for bitmap/rectangle/polygon - other objects are ignored
 
 ## Overview 
 
-Data Exploration for Segmentation and Detection tasks is underestimated by many researchers. The accuracy of your models highly depends on how good you understand data. 
+Data Exploration Tools provide deep understanding of your data and are crucial for building high quality models (better you understand data, more accurate models are).  
 
-This app **"Classes Stats for Images"** generates report with detailed general and per image statistics for all classes in images project. It allows to see big picture as well as shed light on hidden patterns and edge cases (see <a href="#how-to-use">How to use</a> section).
+This app generates report with detailed statistics for all objects in images project. It allows to see big picture as well as shed light on hidden patterns and edge cases (see <a href="#how-to-use">How to use</a> section).
 
 
 ## How To Run
