@@ -52,8 +52,6 @@ Once app is started, new task appear in workspace tasks. Monitor progress from b
 
 <img src="https://i.imgur.com/VBRYrHP.png"/>
 
-App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file from `Files` use "Right mouse click" -> "Open".
-
 ### Step 4: App shuts down automatically
 
 Even if app is finished, you can always use it as a history: open it from tasks list in `Read Only` mode to check Input project, statistics and Output report path. 
@@ -61,8 +59,28 @@ Even if app is finished, you can always use it as a history: open it from tasks 
 
 ## Explanation
 
-### Per Image Stats
-<img src="https://i.imgur.com/9Hl78Lg.png"/>
+### Input card
+<img src="https://i.imgur.com/deOfZvP.png" width="400"/>
+
+Shows input project (clickable), sample percent that user defined at start and the number of images that used in report calculation.
+
+### Output card
+<img src="https://i.imgur.com/R5L3N3U.png" width="400"/>
+
+Shows progress bar and then the path to the saved report in `Files`. So you can open it later.  App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file from `Files` use "Right mouse click" -> "Open".
+
+### Objects table
+<img src="https://i.imgur.com/KMMWBr7.png" width="400"/>
+
+https://i.imgur.com/KMMWBr7.png
+
+### Height distribution
+
+Histogram shows distribution for all classes at once. 
+
+<img src="https://i.imgur.com/R5L3N3U.png" width="400"/>
+
+Use double click to see the 
 
 Columns:
 * `IMAGE ID` - image id in Supervisely Instance
