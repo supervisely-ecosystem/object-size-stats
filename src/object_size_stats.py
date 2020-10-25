@@ -3,9 +3,7 @@ import supervisely_lib as sly
 import random
 from collections import defaultdict
 import json
-import numpy as np
 import plotly.graph_objects as go
-import time
 from statistics import mean
 import pandas as pd
 import plotly.express as px
@@ -34,24 +32,12 @@ class_widths_norm = defaultdict(list)
 class_areas_norm = defaultdict(list)
 class_objects_count = defaultdict(int)
 
+
 def color_text(name, color):
     hexcolor = sly.color.rgb2hex(color)
     # <div style="color:{}">{}</div>
     return '<div><b style="display: inline-block; border-radius: 50%; background: {}; width: 8px; height: 8px"></b> {} </div>'.format(
         hexcolor, name)
-
-
-def _col_name(name, color, icon):
-    hexcolor = sly.color.rgb2hex(color)
-    return '<div><i class="zmdi {}" style="color:{};margin-right:3px"></i> {}</div>'.format(icon, hexcolor, name)
-
-
-def get_col_name_area(name, color):
-    return _col_name(name, color, "zmdi-time-interval")
-
-
-def get_col_name_count(name, color):
-    return _col_name(name, color, "zmdi-equalizer")
 
 
 def sample_images(api, datasets):
@@ -290,6 +276,6 @@ def main():
     # Run application service
     my_app.run(data=data, state=state, initial_events=[{"command": "calc"}])
 
-#@TODO: add columns descriptions directly to report
+#@TODO: add columns descriptions directly to the report
 if __name__ == "__main__":
     sly.main_wrapper("main", main)
