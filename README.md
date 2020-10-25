@@ -70,16 +70,21 @@ Shows input project (clickable), sample percent that user defined at start and t
 Shows progress bar and then the path to the saved report in `Files`. So you can open it later.  App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file from `Files` use "Right mouse click" -> "Open".
 
 ### Objects table
+
 <img src="https://i.imgur.com/KMMWBr7.png"/>
 
-https://i.imgur.com/KMMWBr7.png
-
 Columns:
-* `IMAGE ID` - image id in Supervisely Instance
-* `IMAGE` - image name with direct link to annotation tool. You can use table to find some anomalies or edge cases in your data by sorting different columns and then quickly open images with annotations to investigate deeper. 
-* `HEIGHT`, `WIDTH` - image resolution in pixels
-* `CHANNELS` - number of image channels
-* `UNLABELED` - percentage of pixels (image area)
+* `OBJECT_ID` - object id
+* `CLASS` - object class name
+* `IMAGE` - name of the image (clickable URL) on which this object is
+* `DATASET` - dataset name
+* `IMAGE SIZE (HW)` - image resolution in pixels (height * width)
+* `HEIGHT (PX)` - object height in pixels
+* `HEIGHT (%)` - object height (percentage of image height)
+* `WIDTH (PX)` - object width in pixels
+* `WIDTH (%)` - object width (percentage of image width)
+* `AREA (PX)` - object area in pixels
+* `AREA (%)` - object area (percentage of image area)
 
 
 ### Height distribution
