@@ -210,7 +210,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         # {"field": "data.avgAreaCount", "payload": json.loads(fig.to_json())},
         # {"field": "data.imageWithClassCount", "payload": json.loads(fig_with_without_count.to_json())},
         # {"field": "data.resolutionsCount", "payload": json.loads(pie_resolution.to_json())},
-        # {"field": "data.loading0", "payload": False},
+        {"field": "data.loading0", "payload": False},
         # {"field": "data.loading1", "payload": False},
         # {"field": "data.loading2", "payload": False},
         # {"field": "data.loading3", "payload": False},
@@ -219,7 +219,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         # {"field": "data.reportName", "payload": report_name},
         # {"field": "data.reportUrl", "payload": report_url},
     ]
-    #api.task.set_fields(task_id, fields)
+    api.task.set_fields(task_id, fields)
     #api.task.set_output_report(task_id, file_info["id"], report_name)
     my_app.stop()
 
@@ -386,6 +386,6 @@ def main():
     # Run application service
     my_app.run(data=data, state=state, initial_events=[{"command": "calc"}])
 
-
+#@TODO: add columns descriptions directly to report
 if __name__ == "__main__":
     sly.main_wrapper("main", main)
