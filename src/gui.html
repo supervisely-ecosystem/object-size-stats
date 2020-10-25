@@ -22,20 +22,20 @@
         </el-col>
     </el-row>
 
-    <sly-card title="Classes area and objects count per image"
-              subtitle="Detailed classes statistics for every image"
+    <sly-card title="Object sizes"
+              subtitle="Detailed statistics for every object"
               style="margin-top: 15px;">
         <div slot="header" style="color:#20a0ff">
             <i class="zmdi zmdi-time-interval"></i> - class area (%) <br>
             <i class="zmdi zmdi-equalizer"></i> - number of objects
         </div>
-        <sly-table :options="{perPage: state.perPage, pageSizes: state.pageSizes, fixColumns: 3}"
+        <sly-table :options="{perPage: state.perPage, pageSizes: state.pageSizes, fixColumns: 2}"
                    :content="data.table">
         </sly-table>
     </sly-card>
 
     <sly-card title="Overview"
-              subtitle="Summary statistics for all classes"
+              subtitle="Summary statistics of object sizes for all classes"
               style="margin-top: 15px; min-height: 200px;">
         <sly-table v-loading="data.loading0"
                    element-loading-text="Will be calculated after the per image stats table"

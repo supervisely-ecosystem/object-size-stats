@@ -6,6 +6,7 @@ import json
 import numpy as np
 import plotly.graph_objects as go
 import time
+from statistics import mean
 
 
 my_app = sly.AppService()
@@ -23,17 +24,20 @@ BATCH_SIZE = 50
 
 progress = 0
 
-class_heights = defaultdict(list)
-class_widths = defaultdict(list)
-class_areas = defaultdict(list)
 
-overview_columns = ["#", "class name", "images count", "objects count", "avg class area per image (%)", "avg objects count per image"]
-
+class_heights_px = defaultdict(list)
+class_widths_px = defaultdict(list)
+class_areas_px = defaultdict(list)
+class_heights_norm = defaultdict(list)
+class_widths_norm = defaultdict(list)
+class_areas_norm = defaultdict(list)
+class_objects_count = defaultdict(int)
 
 def color_text(name, color):
     hexcolor = sly.color.rgb2hex(color)
-    #<div style="color:{}">{}</div>
-    return '<div><b style="display: inline-block; border-radius: 50%; background: {}; width: 8px; height: 8px"></b> {} </div>'.format(hexcolor, name)
+    # <div style="color:{}">{}</div>
+    return '<div><b style="display: inline-block; border-radius: 50%; background: {}; width: 8px; height: 8px"></b> {} </div>'.format(
+        hexcolor, name)
 
 
 def _col_name(name, color, icon):
@@ -97,6 +101,8 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     class_names = []
     class_colors = []
     for idx, obj_class in enumerate(meta.obj_classes):
+        if obj_class.geometry_type not in [sly.Bitmap, sly.Rectangle, sly.Polygon]:
+            continue
         class_names.append(obj_class.name)
         class_colors.append(obj_class.color)
 
@@ -131,7 +137,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                     table_row.append(label.obj_class.name)
                     table_row.append(
                         '<a href="{0}" rel="noopener noreferrer" target="_blank">{1}</a>'
-                        .format(api.image.url(TEAM_ID, WORKSPACE_ID, project.id, dataset.id, info.id), info.name)
+                            .format(api.image.url(TEAM_ID, WORKSPACE_ID, project.id, dataset.id, info.id), info.name)
                     )
                     table_row.append(dataset.name)
                     table_row.append("{}x{}".format(image_height, image_width))
@@ -146,8 +152,16 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                     table_row.extend([width_px, width_norm])
 
                     area_px = label.geometry.area
-                    label_area_norm = round(area_px * 100.0 / image_area, 2)
-                    table_row.extend([area_px, label_area_norm])
+                    area_norm = round(area_px * 100.0 / image_area, 2)
+                    table_row.extend([area_px, area_norm])
+
+                    class_heights_px[label.obj_class.name].append(height_px)
+                    class_heights_norm[label.obj_class.name].append(height_norm)
+                    class_widths_px[label.obj_class.name].append(width_px)
+                    class_widths_norm[label.obj_class.name].append(width_norm)
+                    class_areas_px[label.obj_class.name].append(area_px)
+                    class_areas_norm[label.obj_class.name].append(area_norm)
+                    class_objects_count[label.obj_class.name] += 1
 
                     batch_stats.append(table_row)
                 progress += 1
@@ -160,6 +174,53 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
             api.task.set_fields(task_id, fields)
             task_progress.iters_done_report(len(batch_stats))
 
+    # overview table
+    overview_columns = ["#", "class name", "objects count",
+                        "min h (px)", "min h (%)", "max h (px)", "max h (%)", "avg h (px)", "avg h (%)",
+                        "min w (px)", "min w (%)", "max w (px)", "max w (%)", "avg w (px)", "avg w (%)",
+                        ]
+
+    overviewTable = {
+        "columns": overview_columns,
+        "data": []
+    }
+    _overview_data = []
+    for idx, (class_name, class_color) in enumerate(zip(class_names, class_colors)):
+
+        row = [idx,
+               color_text(class_name, class_color),
+               class_objects_count[class_name],
+               ]
+        if class_objects_count[class_name] > 0:
+            row.extend([
+                min(class_heights_px[class_name]), min(class_heights_norm[class_name]),
+                max(class_heights_px[class_name]), max(class_heights_norm[class_name]),
+                round(mean(class_heights_px[class_name]), 2), round(mean(class_heights_norm[class_name]), 2),
+                min(class_widths_px[class_name]), min(class_widths_norm[class_name]),
+                max(class_widths_px[class_name]), max(class_widths_norm[class_name]),
+                round(mean(class_widths_px[class_name]), 2), round(mean(class_widths_norm[class_name]), 2),
+            ])
+        else:
+            row.extend([None] * 12)
+        _overview_data.append(row)
+    overviewTable["data"] = _overview_data
+
+    fields = [
+        {"field": "data.overviewTable", "payload": overviewTable},
+        # {"field": "data.avgAreaCount", "payload": json.loads(fig.to_json())},
+        # {"field": "data.imageWithClassCount", "payload": json.loads(fig_with_without_count.to_json())},
+        # {"field": "data.resolutionsCount", "payload": json.loads(pie_resolution.to_json())},
+        # {"field": "data.loading0", "payload": False},
+        # {"field": "data.loading1", "payload": False},
+        # {"field": "data.loading2", "payload": False},
+        # {"field": "data.loading3", "payload": False},
+        # {"field": "state.showDialog", "payload": True},
+        # {"field": "data.savePath", "payload": remote_path},
+        # {"field": "data.reportName", "payload": report_name},
+        # {"field": "data.reportUrl", "payload": report_url},
+    ]
+    #api.task.set_fields(task_id, fields)
+    #api.task.set_output_report(task_id, file_info["id"], report_name)
     my_app.stop()
 
     #
@@ -308,7 +369,7 @@ def main():
         "projectId": "",
         "projectPreviewUrl": "",
         "overviewTable": {
-            "columns": overview_columns,
+            "columns": [],
             "data": []
         },
         "savePath": "...",
