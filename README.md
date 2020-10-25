@@ -111,57 +111,25 @@ Columns:
 * `MAX AREA (%)` - maximum object area (in percent of image area)
 * `AVG AREA (%)` - average object area (in percent of image area)
 
-### Height distribution
+### Distributions [height (px) / width (px) / area (%)]
 
-Histogram shows distribution for all classes at once. 
+Histograms shows distributions for all classes at once. Also you can double-click to class to hide other classes except this one. Or you can select several classes to compare their distributions. 
 
-<img src="https://i.imgur.com/R5L3N3U.png" width="400"/>
+Height (in px) distribution for all classes:
+<img src="https://i.imgur.com/AFX5KVX.png"/>
 
-Use double click to see the 
+Height (in px) distribution for single class:
+<img src="https://i.imgur.com/zhAG0t6.png"/>
 
-Columns:
-* `IMAGE ID` - image id in Supervisely Instance
-* `IMAGE` - image name with direct link to annotation tool. You can use table to find some anomalies or edge cases in your data by sorting different columns and then quickly open images with annotations to investigate deeper. 
-* `HEIGHT`, `WIDTH` - image resolution in pixels
-* `CHANNELS` - number of image channels
-* `UNLABELED` - percentage of pixels (image area)
+Width (in px) distribution for all classes:
+<img src="https://i.imgur.com/MzTNrZu.png"/>
 
-Columns for every class:
-* <img src="https://i.imgur.com/tyDf3qi.png" width="100"/> - class area (%)
-* <img src="https://i.imgur.com/1EquheL.png" width="100"/> - number of objects of a given class (%)
+Width (in px) distribution for single class:
+<img src="https://i.imgur.com/XV2RhLU.png"/>
 
-### Per Class Stats
 
-<img src="https://i.imgur.com/ztE4BCG.png"/>
+Area (in %) distribution for all classes:
+<img src="https://i.imgur.com/MzTNrZu.png"/>
 
-* `CLASS NAME`
-* `IMAGES COUNT` - total number of images that have at least one object of a given class
-* `OBJECTS COUNT` - total number of objects of a given class
-* `AVG CLASS AREA PER IMAGE (%)` -
-
-```
-              the sum of a class area on all images               
- -------------------------------------------------------------- 
- the number of images with at least one object of a given class 
-```
- 
-* `AVG OBJECTS COUNT PER IMAGE (%)` - 
-```
-              total number of class objects               
- -------------------------------------------------------------- 
- the number of images with at least one object of a given class 
-```
-
-### Histogram: AVG AREA / AVG OBJECTS COUNT
-
-<img src="https://i.imgur.com/6LXoXHH.png"/>
-
-Histogram view for two metrics from previous chapter: `AVG CLASS AREA PER IMAGE (%)` and `AVG OBJECTS COUNT PER IMAGE (%)`
-
-### Images Count With / Without Class
-
-<img src="https://i.imgur.com/veerIHk.png"/>
-
-### TOP-10 Image Resolutions
-
-<img src="https://i.imgur.com/UwrkTBf.png"/>
+Area (in %) distribution for single class:
+<img src="https://i.imgur.com/z1qJQlo.png"/>
