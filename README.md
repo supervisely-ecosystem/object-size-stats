@@ -85,11 +85,11 @@ Columns:
 
 ### Classes overview
 
-Properties of object (in data sample) for every class. If sample == 100% then all objects are processed.
+Properties of object (in data sample) for every class. If sample == 100% then all objects are processed. Use horizontal scroll to see all columns.
 
 <img src="https://i.imgur.com/oYeg6LU.png"/>
 
-<img src="https://media.giphy.com/media/RzVJXnijKWwYzONe57/giphy.gif" width="400"/>
+<img src="https://media.giphy.com/media/RzVJXnijKWwYzONe57/giphy.gif"/>
 
 
 Columns:
