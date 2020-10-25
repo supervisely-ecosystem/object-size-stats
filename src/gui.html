@@ -2,7 +2,7 @@
     <el-row :gutter="20" type="flex">
         <el-col :span="8">
             <sly-card title="Input">
-                <sly-field title="" description="Project">
+                <sly-field v-if="data.projectName.length !== 0" title="" description="Project">
                     <a slot="title" target="_blank" :href="`/projects/${data.projectId}/datasets`">
                         {{data.projectName}} ({{data.samplePercent}}% / {{data.sampleCount}} images)
                     </a>
@@ -26,7 +26,7 @@
     <sly-card title="Object sizes"
               subtitle="Detailed statistics for every object"
               style="margin-top: 15px;">
-        <sly-table :options="{perPage: state.perPage, pageSizes: state.pageSizes, fixColumns: 2}"
+        <sly-table :options="{perPage: state.perPage, pageSizes: state.pageSizes, fixColumns: 3}"
                    :content="data.table">
         </sly-table>
     </sly-card>
