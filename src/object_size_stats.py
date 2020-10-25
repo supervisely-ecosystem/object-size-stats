@@ -88,10 +88,14 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     if datasets is None:
         datasets = api.dataset.get_list(PROJECT_ID)
 
+    ds_images, sample_count = sample_images(api, datasets)
+
     fields = [
         {"field": "data.projectName", "payload": project.name},
         {"field": "data.projectId", "payload": project.id},
-        {"field": "data.projectPreviewUrl", "payload": api.image.preview_url(project.reference_image_url, 100, 100)}
+        {"field": "data.projectPreviewUrl", "payload": api.image.preview_url(project.reference_image_url, 100, 100)},
+        {"field": "data.samplePercent", "payload": SAMPLE_PERCENT},
+        {"field": "data.sampleCount", "payload": sample_count},
     ]
     api.task.set_fields(task_id, fields)
 
@@ -112,8 +116,6 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     api.task.set_field(task_id, "data.table.columns", table_columns)
 
     all_stats = []
-
-    ds_images, sample_count = sample_images(api, datasets)
     task_progress = sly.Progress("Stats", sample_count, app_logger)
     for dataset_id, images in ds_images.items():
         dataset = api.dataset.get_info_by_id(dataset_id)
@@ -201,157 +203,49 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         _overview_data.append(row)
     overviewTable["data"] = _overview_data
 
-    #height_px histogram
-    _heights = []
     # @TODO: how to use class colors
-    for (class_name, class_color) in zip(class_names, class_colors):
-        for h in class_heights_px[class_name]:
-            _heights.append([class_name, h])
-    df_height = pd.DataFrame(_heights, columns=["class", "height"])
-    hist_height = px.histogram(df_height, x="height", color="class")
+    def _create_hist(class2values, name):
+        table = []
+        for (class_name, class_color) in zip(class_names, class_colors):
+            for v in class2values[class_name]:
+                table.append([class_name, v])
+        df = pd.DataFrame(table, columns=["class", name])
+        hist = px.histogram(df, x=name, color="class")
+        return hist
 
-    #df = px.data.tips()
-    #hist_height = px.histogram(df, x="total_bill", color="sex")
+    #histograms
+    hist_height = _create_hist(class_heights_px, "height")
+    hist_width = _create_hist(class_widths_px, "width")
+    hist_area = _create_hist(class_areas_norm, "area (%)")
+
+    # # save report to file *.lnk (link to report)
+    report_name = "{}.lnk".format(project.name)
+    local_path = os.path.join(my_app.data_dir, report_name)
+    sly.fs.ensure_base_path(local_path)
+    with open(local_path, "w") as text_file:
+        print(my_app.app_url, file=text_file)
+    remote_path = "/reports/objects_stats/{}/{}/{}".format(USER_LOGIN, workspace.name, report_name)
+    remote_path = api.file.get_free_name(TEAM_ID, remote_path)
+    report_name = sly.fs.get_file_name_with_ext(remote_path)
+    file_info = api.file.upload(TEAM_ID, local_path, remote_path)
+    report_url = api.file.get_url(file_info["id"])
 
     fields = [
         {"field": "data.overviewTable", "payload": overviewTable},
-        {"field": "data.histHeights", "payload": json.loads(hist_height.to_json())},
-        # {"field": "data.imageWithClassCount", "payload": json.loads(fig_with_without_count.to_json())},
-        # {"field": "data.resolutionsCount", "payload": json.loads(pie_resolution.to_json())},
+        {"field": "data.histHeight", "payload": json.loads(hist_height.to_json())},
+        {"field": "data.histWidth", "payload": json.loads(hist_width.to_json())},
+        {"field": "data.histArea", "payload": json.loads(hist_area.to_json())},
         {"field": "data.loading0", "payload": False},
         {"field": "data.loading1", "payload": False},
-        # {"field": "data.loading2", "payload": False},
-        # {"field": "data.loading3", "payload": False},
-        # {"field": "state.showDialog", "payload": True},
-        # {"field": "data.savePath", "payload": remote_path},
-        # {"field": "data.reportName", "payload": report_name},
-        # {"field": "data.reportUrl", "payload": report_url},
+        {"field": "data.loading2", "payload": False},
+        {"field": "data.loading3", "payload": False},
+        {"field": "data.savePath", "payload": remote_path},
+        {"field": "data.reportName", "payload": report_name},
+        {"field": "data.reportUrl", "payload": report_url},
     ]
     api.task.set_fields(task_id, fields)
-    #api.task.set_output_report(task_id, file_info["id"], report_name)
+    api.task.set_output_report(task_id, file_info["id"], report_name)
     my_app.stop()
-
-    #
-    #
-    # # average nonzero class area per image
-    # with np.errstate(divide='ignore'):
-    #     avg_nonzero_area = np.divide(sum_class_area_per_image, count_images_with_class)
-    #     avg_nonzero_count = np.divide(sum_class_count_per_image, count_images_with_class)
-    #
-    # avg_nonzero_area = np.where(np.isnan(avg_nonzero_area), None, avg_nonzero_area)
-    # avg_nonzero_count = np.where(np.isnan(avg_nonzero_count), None, avg_nonzero_count)
-    #
-    # fig = go.Figure(
-    #     data=[
-    #         go.Bar(name='Area %', x=class_names, y=avg_nonzero_area, yaxis='y', offsetgroup=1),
-    #         go.Bar(name='Count', x=class_names, y=avg_nonzero_count, yaxis='y2', offsetgroup=2)
-    #     ],
-    #     layout={
-    #         'yaxis': {'title': 'Area'},
-    #         'yaxis2': {'title': 'Count', 'overlaying': 'y', 'side': 'right'}
-    #     }
-    # )
-    # # Change the bar mode
-    # fig.update_layout(barmode='group')  # , legend_orientation="h")
-    #
-    #
-    # # images count with/without classes
-    # images_with_count = []
-    # images_without_count = []
-    # images_with_count_text = []
-    # images_without_count_text = []
-    # for idx, class_name in enumerate(class_names):
-    #     #if class_name == "unlabeled":
-    #     #    continue
-    #     with_count = count_images_with_class[idx] #- 1 if class_name == "unlabeled" else count_images_with_class[idx]
-    #     without_count = sample_count - with_count
-    #     images_with_count.append(with_count)
-    #     images_without_count.append(without_count)
-    #     images_with_count_text.append("{} ({:.2f} %)".format(with_count, with_count * 100 / sample_count))
-    #     images_without_count_text.append("{} ({:.2f} %)".format(without_count, without_count * 100 / sample_count))
-    #
-    # if len(class_names) != len(images_with_count) or len(class_names) != len(images_with_count_text) or \
-    #     len(class_names) != len(images_without_count) or len(class_names) != len(images_without_count_text):
-    #     raise RuntimeError("Class names are inconsistent with images counting")
-    #
-    # fig_with_without_count = go.Figure(
-    #     data=[
-    #         go.Bar(name='# of images that have class', x=class_names, y=images_with_count, text=images_with_count_text),
-    #         go.Bar(name='# of images that do not have class', x=class_names, y=images_without_count, text=images_without_count_text)
-    #     ],
-    # )
-    # fig_with_without_count.update_layout(barmode='stack')  # , legend_orientation="h")
-    #
-    # # barchart resolution
-    # resolution_labels = []
-    # resolution_values = []
-    # resolution_percent = []
-    # for label, value in sorted(resolutions_count.items(), key=lambda item: item[1], reverse=True):
-    #     resolution_labels.append(label)
-    #     resolution_values.append(value)
-    # if len(resolution_labels) > 10:
-    #     resolution_labels = resolution_labels[:10]
-    #     resolution_labels.append("other")
-    #     other_value = sum(resolution_values[10:])
-    #     resolution_values = resolution_values[:10]
-    #     resolution_values.append(other_value)
-    # resolution_percent = [round(v * 100 / sample_count) for v in resolution_values]
-    #
-    # #df_resolution = pd.DataFrame({'resolution': resolution_labels, 'count': resolution_values, 'percent': resolution_percent})
-    # pie_resolution = go.Figure(data=[go.Pie(labels=resolution_labels, values=resolution_values)])
-    # #pie_resolution = px.pie(df_resolution, names='resolution', values='count')
-    #
-    # # @TODO: hotfix - pie chart do not refreshes automatically
-    # fig.update_layout(autosize=False, height=450)
-    # fig_with_without_count.update_layout(autosize=False, height=450)
-    # pie_resolution.update_layout(autosize=False, height=450)
-    #
-    # # overview table
-    # overviewTable = {
-    #     "columns": overview_columns,
-    #     "data": []
-    # }
-    # _overview_data = []
-    # for idx, (class_name, class_color) in enumerate(zip(class_names, class_colors)):
-    #     row = [idx,
-    #            color_text(class_name, class_color),
-    #            count_images_with_class[idx], # - 1 if class_name == "unlabeled" else count_images_with_class[idx],
-    #            sum_class_count_per_image[idx],
-    #            None if avg_nonzero_area[idx] is None else round(avg_nonzero_area[idx], 2),
-    #            None if avg_nonzero_count[idx] is None else round(avg_nonzero_count[idx], 2)
-    #     ]
-    #     _overview_data.append(row)
-    # overviewTable["data"] = _overview_data
-    #
-    # # save report to file *.lnk (link to report)
-    # report_name = "{}.lnk".format(project.name)
-    # local_path = os.path.join(my_app.data_dir, report_name)
-    # sly.fs.ensure_base_path(local_path)
-    # with open(local_path, "w") as text_file:
-    #     print(my_app.app_url, file=text_file)
-    # remote_path = "/reports/classes_stats/{}/{}/{}".format(USER_LOGIN, workspace.name, report_name)
-    # remote_path = api.file.get_free_name(TEAM_ID, remote_path)
-    # report_name = sly.fs.get_file_name_with_ext(remote_path)
-    # file_info = api.file.upload(TEAM_ID, local_path, remote_path)
-    # report_url = api.file.get_url(file_info["id"])
-    #
-    # fields = [
-    #     {"field": "data.overviewTable", "payload": overviewTable},
-    #     {"field": "data.avgAreaCount", "payload": json.loads(fig.to_json())},
-    #     {"field": "data.imageWithClassCount", "payload": json.loads(fig_with_without_count.to_json())},
-    #     {"field": "data.resolutionsCount", "payload": json.loads(pie_resolution.to_json())},
-    #     {"field": "data.loading0", "payload": False},
-    #     {"field": "data.loading1", "payload": False},
-    #     {"field": "data.loading2", "payload": False},
-    #     {"field": "data.loading3", "payload": False},
-    #     {"field": "state.showDialog", "payload": True},
-    #     {"field": "data.savePath", "payload": remote_path},
-    #     {"field": "data.reportName", "payload": report_name},
-    #     {"field": "data.reportUrl", "payload": report_url},
-    # ]
-    # api.task.set_fields(task_id, fields)
-    # api.task.set_output_report(task_id, file_info["id"], report_name)
-    # my_app.stop()
 
 
 def main():
@@ -365,23 +259,25 @@ def main():
             "columns": [],
             "data": []
         },
+        "overviewTable": {
+            "columns": [],
+            "data": []
+        },
         "progress": progress,
         "loading0": True,
         "loading1": True,
         "loading2": True,
         "loading3": True,
-        "avgAreaCount": json.loads(go.Figure().to_json()),
-        "imageWithClassCount": json.loads(go.Figure().to_json()),
-        "resolutionsCount": json.loads(go.Figure().to_json()),
+        "histHeight": json.loads(go.Figure().to_json()),
+        "histWidth": json.loads(go.Figure().to_json()),
+        "histArea": json.loads(go.Figure().to_json()),
         "projectName": "",
         "projectId": "",
         "projectPreviewUrl": "",
-        "overviewTable": {
-            "columns": [],
-            "data": []
-        },
         "savePath": "...",
-        "reportName": "..."
+        "reportName": "...",
+        "samplePercent": "",
+        "sampleCount": ""
     }
 
     state = {

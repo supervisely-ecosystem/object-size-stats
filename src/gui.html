@@ -3,8 +3,9 @@
         <el-col :span="8">
             <sly-card title="Input">
                 <sly-field title="" description="Project">
-                    <a slot="title" target="_blank"
-                       :href="`/projects/${data.projectId}/datasets`">{{data.projectName}}</a>
+                    <a slot="title" target="_blank" :href="`/projects/${data.projectId}/datasets`">
+                        {{data.projectName}} ({{data.samplePercent}}% / {{data.sampleCount}} images)
+                    </a>
                     <sly-icon slot="icon" :options="{ imageUrl: `${data.projectPreviewUrl}` }"/>
                 </sly-field>
             </sly-card>
@@ -25,10 +26,6 @@
     <sly-card title="Object sizes"
               subtitle="Detailed statistics for every object"
               style="margin-top: 15px;">
-        <div slot="header" style="color:#20a0ff">
-            <i class="zmdi zmdi-time-interval"></i> - class area (%) <br>
-            <i class="zmdi zmdi-equalizer"></i> - number of objects
-        </div>
         <sly-table :options="{perPage: state.perPage, pageSizes: state.pageSizes, fixColumns: 2}"
                    :content="data.table">
         </sly-table>
@@ -38,35 +35,35 @@
               subtitle="Summary statistics of object sizes for all classes"
               style="margin-top: 15px; min-height: 200px;">
         <sly-table v-loading="data.loading0"
-                   element-loading-text="Will be calculated after the per image stats table"
+                   element-loading-text="Will be calculated after the objects table"
                    :content="data.overviewTable">
         </sly-table>
     </sly-card>
 
-    <sly-card title="Heights histogram"
-              subtitle="Histogram of objects heights for every class)"
+    <sly-card title="Height (px) distribution"
+              subtitle="Histogram of objects heights for every class (in pixels)"
               style="height:100%; margin-top: 15px;">
         <sly-plotly v-loading="data.loading1"
-                    element-loading-text="Will be calculated after the per image stats table"
-                    :content="data.histHeights">
+                    element-loading-text="Will be calculated after the objects table"
+                    :content="data.histHeight">
         </sly-plotly>
     </sly-card>
 
-    <sly-card title="Number of images with/without specific class"
-              subtitle="For every class two values are calculated: how many images have / don't have a specific class"
+    <sly-card title="Width (px) distribution"
+              subtitle="Histogram of objects widths for every class (in pixels)"
               style="height:100%; margin-top: 15px;">
         <sly-plotly v-loading="data.loading2"
-                    element-loading-text="Will be calculated after the per image stats table"
-                    :content="data.imageWithClassCount">
+                    element-loading-text="Will be calculated after the objects table"
+                    :content="data.histWidth">
         </sly-plotly>
     </sly-card>
 
-    <sly-card title="Images resolutions (height x width x channels)"
-              subtitle="Image resolutions distribution"
+    <sly-card title="Area (%) distribution"
+              subtitle="Histogram of objects areas for every class (in percent)"
               style="height:100%; margin-top: 15px;">
         <sly-plotly v-loading="data.loading3"
-                    element-loading-text="Will be calculated after the per image stats table"
-                    :content="data.resolutionsCount">
+                    element-loading-text="Will be calculated after the objects table"
+                    :content="data.histArea">
         </sly-plotly>
     </sly-card>
 </div>
