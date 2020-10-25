@@ -56,6 +56,11 @@ Once app is started, new task appear in workspace tasks. Monitor progress from b
 
 App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file from `Files` use "Right mouse click" -> "Open".
 
+### Step 4: App shuts down automatically
+
+Even if app is finished, you can always use it as a history: open it from tasks list in `Read Only` mode to check Input project, statistics and Output report path. 
+
+
 ## Explanation
 
 ### Per Image Stats
