@@ -89,7 +89,7 @@ Properties of object (in data sample) for every class. If sample == 100% then al
 
 <img src="https://i.imgur.com/oYeg6LU.png"/>
 
-<img src="https://media.giphy.com/media/RzVJXnijKWwYzONe57/giphy.gif"/>
+---<img src="https://media.giphy.com/media/RzVJXnijKWwYzONe57/giphy.gif"/>
 
 
 Columns:
