@@ -7,7 +7,8 @@ import numpy as np
 import plotly.graph_objects as go
 import time
 from statistics import mean
-
+import pandas as pd
+import plotly.express as px
 
 my_app = sly.AppService()
 
@@ -179,18 +180,13 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                         "min h (px)", "min h (%)", "max h (px)", "max h (%)", "avg h (px)", "avg h (%)",
                         "min w (px)", "min w (%)", "max w (px)", "max w (%)", "avg w (px)", "avg w (%)",
                         ]
-
     overviewTable = {
         "columns": overview_columns,
         "data": []
     }
     _overview_data = []
     for idx, (class_name, class_color) in enumerate(zip(class_names, class_colors)):
-
-        row = [idx,
-               color_text(class_name, class_color),
-               class_objects_count[class_name],
-               ]
+        row = [idx, color_text(class_name, class_color), class_objects_count[class_name]]
         if class_objects_count[class_name] > 0:
             row.extend([
                 min(class_heights_px[class_name]), min(class_heights_norm[class_name]),
@@ -205,13 +201,25 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         _overview_data.append(row)
     overviewTable["data"] = _overview_data
 
+    #height_px histogram
+    _heights = []
+    # @TODO: how to use class colors
+    for (class_name, class_color) in zip(class_names, class_colors):
+        for h in class_heights_px[class_name]:
+            _heights.append([class_name, h])
+    df_height = pd.DataFrame(_heights, columns=["class", "height"])
+    hist_height = px.histogram(df_height, x="height", color="class")
+
+    #df = px.data.tips()
+    #hist_height = px.histogram(df, x="total_bill", color="sex")
+
     fields = [
         {"field": "data.overviewTable", "payload": overviewTable},
-        # {"field": "data.avgAreaCount", "payload": json.loads(fig.to_json())},
+        {"field": "data.histHeights", "payload": json.loads(hist_height.to_json())},
         # {"field": "data.imageWithClassCount", "payload": json.loads(fig_with_without_count.to_json())},
         # {"field": "data.resolutionsCount", "payload": json.loads(pie_resolution.to_json())},
         {"field": "data.loading0", "payload": False},
-        # {"field": "data.loading1", "payload": False},
+        {"field": "data.loading1", "payload": False},
         # {"field": "data.loading2", "payload": False},
         # {"field": "data.loading3", "payload": False},
         # {"field": "state.showDialog", "payload": True},
