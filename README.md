@@ -13,7 +13,7 @@ only for bitmap/rectangle/polygon - other objects are ignored
 
   <a href="#overview">Overview</a> •
   <a href="#How-To-Run">How To Run</a> •
-  <a href="#Explanation">Details</a>
+  <a href="#Details">Details</a>
 </p>
 
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack) 
@@ -57,7 +57,7 @@ Once app is started, new task appear in workspace tasks. Monitor progress from b
 Even if app is finished, you can always use it as a history: open it from tasks list in `Read Only` mode to check Input project, statistics and Output report path. 
 
 
-## Explanation
+## Details
 
 ### Input card
 <img src="https://i.imgur.com/deOfZvP.png" width="400"/>
