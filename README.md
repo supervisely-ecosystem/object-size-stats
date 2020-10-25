@@ -43,9 +43,7 @@ If number of objects in project is huge, define random sample (%). Subset stats 
 
 ### Step 3:  Open app
 
-Once app is started, new task appear in workspace tasks. Monitor progress from both "Tasks" list and from application page. 
-
-To open report in a new tab click "Open" button. 
+Once app is started, new task appear in workspace tasks. Monitor progress from both "Tasks" list and from application page. To open report in a new tab click "Open" button. 
 
 <img src="https://i.imgur.com/VBRYrHP.png"/>
 
@@ -64,7 +62,9 @@ Shows input project (clickable), sample percent that user defined at start and t
 ### Output card
 <img src="https://i.imgur.com/R5L3N3U.png" width="400"/>
 
-Shows progress bar and then the path to the saved report in `Files`. So you can open it later.  App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file from `Files` use "Right mouse click" -> "Open".
+Shows progress bar and then the path to the saved report in `Files`. So you can open it later.  App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. 
+
+To open report file from `Files` use "Right mouse click" -> "Open".
 
 ### Objects table
 
