@@ -1,8 +1,3 @@
-o# TODO
-only for bitmap/rectangle/polygon - other objects are ignored
-
-
-
 <div align="center" markdown> 
 
 <img src="https://i.imgur.com/NJzq6OM.png"/>
