@@ -172,7 +172,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                 {"field": "data.table.data", "payload": batch_stats, "append": True}
             ]
             api.task.set_fields(task_id, fields)
-            task_progress.iters_done_report(len(batch_stats))
+            task_progress.iters_done_report(len(batch))
 
     # overview table
     overview_columns = ["#", "class name", "objects count",
