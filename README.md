@@ -37,13 +37,13 @@ This app generates report with detailed statistics for all objects in images pro
 
 ### Step 1: Run from context menu of project / dataset
 
-Go to "Context Menu" (images project or dataset) -> "Report" -> "Classes stats for images"
+Go to "Context Menu" (images project or dataset) -> "Report" -> "Object Size Stats"
 
 <img src="https://i.imgur.com/dGGzVsm.png" width="600"/>
 
 ### Step 2: Configure running settings
 
-Choose the percentage of images that should be randomly sampled. By default all images will be used. And then press "Run" button. In advanced settings you can change agent that will host the app and change version (latest available version is used by default).
+If number of objects in project is huge, define random sample (%). Subset stats is meant to be an unbiased representation of entire data and will be calculated much faster. Choose the percentage of images that should be randomly sampled. By default all images will be used. And then press "Run" button. In advanced settings you can change agent that will host the app and change version (latest available version is used by default).
 
 <img src="https://i.imgur.com/lI6jenf.png" width="400"/>
 
