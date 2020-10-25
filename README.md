@@ -71,11 +71,54 @@ Shows progress bar and then the path to the saved report in `Files`. So you can 
 
 ### Objects table
 
+Size properties for every object
+
 <img src="https://i.imgur.com/KMMWBr7.png"/>
 
 Columns:
 * `OBJECT_ID` - object id
 * `CLASS` - object class name
+* `IMAGE` - name of the image (clickable URL) on which this object is
+* `DATASET` - dataset name
+* `IMAGE SIZE (HW)` - image resolution in pixels (height * width)
+* `HEIGHT (PX)` - object height in pixels
+* `HEIGHT (%)` - object height (percentage of image height)
+* `WIDTH (PX)` - object width in pixels
+* `WIDTH (%)` - object width (percentage of image width)
+* `AREA (PX)` - object area in pixels
+* `AREA (%)` - object area (percentage of image area)
+
+### Classes overview
+
+Properties of object (in data sample) for every class. If sample == 100% then all objects are processed.
+
+<img src="https://i.imgur.com/oYeg6LU.png"/>
+
+<img src="https://media.giphy.com/media/RzVJXnijKWwYzONe57/giphy.gif" width="400"/>
+
+
+Columns:
+* `CLASS NAME` - class name
+* `OBJECTS COUNT` - number of objects of the class
+* `MIN H (PX)` - minimum object height (in pixels)
+* `MIN H (%)` - minimum object height (in percent of image height)
+* `MAX H (PX)` - maximum object height (in pixels)
+* `MAX H (%)` - maximum object height (in percent of image height)
+* `AVG H (PX)` - average object height (in pixels)
+* `AVG H (%)` - average object height (in percent of image height)
+* `MIN W (PX)` - minimum object width (in pixels)
+* `MIN W (%)` - minimum object width (in percent of image width)
+* `MAX W (PX)` - maximum object width (in pixels)
+* `MAX W (%)` - maximum object width (in percent of image width)
+* `AVG W (PX)` - average object width (in pixels)
+* `AVG W (%)` - average object width (in percent of image width)
+* `MIN AREA (PX)` - minimum object width (in pixels)
+* `MIN W (%)` - minimum object width (in percent of image width)
+* `MAX W (PX)` - maximum object width (in pixels)
+* `MAX W (%)` - maximum object width (in percent of image width)
+* `AVG W (PX)` - average object width (in pixels)
+* `AVG W (%)` - average object width (in percent of image width)
+
 * `IMAGE` - name of the image (clickable URL) on which this object is
 * `DATASET` - dataset name
 * `IMAGE SIZE (HW)` - image resolution in pixels (height * width)
