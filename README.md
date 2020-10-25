@@ -39,7 +39,7 @@ This app generates report with detailed statistics for all objects in images pro
 
 Go to "Context Menu" (images project or dataset) -> "Report" -> "Object Size Stats"
 
-<img src="https://i.imgur.com/dGGzVsm.png" width="600"/>
+<img src="https://i.imgur.com/pY9NTHW.png" width="600"/>
 
 ### Step 2: Configure running settings
 
