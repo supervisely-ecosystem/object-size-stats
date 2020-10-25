@@ -1,0 +1,12 @@
+<div>
+<!--    <sly-field title="Input project">-->
+<!--        <el-select v-model="state.projectId" placeholder="Select">-->
+<!--            <el-option :key="195" :label="lemons_annotated" :value="195"/>-->
+<!--        </el-select>-->
+<!--    </sly-field>-->
+
+    <sly-field title="Sample (%)"
+               description="Stats will be calculated only for the defined random sample of images (%)">
+        <el-slider v-model="state.samplePercent" :min="1" show-input></el-slider>
+    </sly-field>
+</div>

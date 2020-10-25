@@ -1,0 +1,25 @@
+{
+  "name": "Object Size Stats",
+  "type": "app",
+  "categories": [
+    "report",
+    "images",
+    "data exploration"
+  ],
+  "description": "Detailed statistics and distribution of object sizes (width, height, area)",
+  "docker_image": "supervisely/base-py-sdk:6",
+  "main_script": "src/object_size_stats.py",
+  "modal_template": "src/modal.html",
+  "modal_template_state": {
+    "samplePercent": 100
+  },
+  "gui_template": "src/gui.html",
+  "task_location": "workspace_tasks",
+  "isolate": true,
+  "context_menu": {
+    "target": ["images_project", "images_dataset"],
+    "context_root": "Report"
+  },
+  "icon": "https://i.imgur.com/4gNHwaq.png",
+  "icon_background": "#FFFFFF"
+}
