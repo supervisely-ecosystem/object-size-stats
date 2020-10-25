@@ -1,6 +1,4 @@
 # TODO
-Distribution of objects sizes (width, height, area)
-
 only for bitmap/rectangle/polygon - other objects are ignored
 
 
@@ -30,7 +28,7 @@ only for bitmap/rectangle/polygon - other objects are ignored
 
 Data Exploration Tools provide deep understanding of your data and are crucial for building high quality models (better you understand data, more accurate models are).  
 
-This app generates report with detailed statistics for all objects in images project. It allows to see big picture as well as shed light on hidden patterns and edge cases (see <a href="#how-to-use">How to use</a> section).
+This app generates report with detailed statistics for objects (bitmap/rectangle/polygon, other objects are ignored) in images project. It allows to see big picture as well as shed light on hidden patterns and edge cases (see <a href="#how-to-use">How to use</a> section). 
 
 
 ## How To Run
