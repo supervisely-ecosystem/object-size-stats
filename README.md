@@ -45,7 +45,7 @@ Go to "Context Menu" (images project or dataset) -> "Report" -> "Object Size Sta
 
 If number of objects in project is huge, define random sample (%). Subset stats is meant to be an unbiased representation of entire data and will be calculated much faster. Choose the percentage of images that should be randomly sampled. By default all images will be used. And then press "Run" button. In advanced settings you can change agent that will host the app and change version (latest available version is used by default).
 
-<img src="https://i.imgur.com/lI6jenf.png" width="400"/>
+<img src="https://i.imgur.com/4wZvTLQ.png" width="400"/>
 
 
 ### Step 3:  Open app
