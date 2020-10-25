@@ -114,7 +114,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
 
             for info, ann_json in zip(batch, ann_jsons):
                 ann = sly.Annotation.from_json(ann_json, meta)
-                table_row = []
+
                 image_height = ann.img_size[0]
                 image_width = ann.img_size[1]
                 image_area = image_height * image_width
@@ -122,6 +122,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                     if type(label.geometry) not in [sly.Bitmap, sly.Rectangle, sly.Polygon]:
                         continue
 
+                    table_row = []
                     table_row.append(label.geometry.sly_id)
                     table_row.append(label.obj_class.name)
                     table_row.append(
