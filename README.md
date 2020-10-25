@@ -52,9 +52,9 @@ If number of objects in project is huge, define random sample (%). Subset stats 
 
 Once app is started, new task appear in workspace tasks. Monitor progress from both "Tasks" list and from application page. To open report in a new tab click "Open" button. 
 
-<img src="https://i.imgur.com/WW4Kacc.png"/>
+<img src="https://i.imgur.com/VBRYrHP.png"/>
 
-App saves resulting report to "Files": `/reports/classes_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file in future use "Right mouse click" -> "Open".
+App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. To open report file from `Files` use "Right mouse click" -> "Open".
 
 ## Explanation
 
