@@ -11,7 +11,7 @@
   "main_script": "src/object_size_stats.py",
   "modal_template": "src/modal.html",
   "modal_template_state": {
-    "samplePercent": 100
+    "samplePercent": 25
   },
   "gui_template": "src/gui.html",
   "task_location": "workspace_tasks",
