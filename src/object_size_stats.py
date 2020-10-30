@@ -218,7 +218,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     remote_path = api.file.get_free_name(TEAM_ID, remote_path)
     report_name = sly.fs.get_file_name_with_ext(remote_path)
     file_info = api.file.upload(TEAM_ID, local_path, remote_path)
-    report_url = api.file.get_url(file_info["id"])
+    report_url = api.file.get_url(file_info.id)
 
     fields = [
         {"field": "data.overviewTable", "payload": overviewTable},
