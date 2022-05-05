@@ -17,9 +17,13 @@
   "task_location": "workspace_tasks",
   "isolate": true,
   "context_menu": {
-    "target": ["images_project", "images_dataset"],
+    "target": [
+      "images_project",
+      "images_dataset"
+    ],
     "context_root": "Report"
   },
   "icon": "https://i.imgur.com/4gNHwaq.png",
-  "icon_background": "#FFFFFF"
+  "icon_background": "#FFFFFF",
+  "poster": "https://i.imgur.com/NJzq6OM.png"
 }
