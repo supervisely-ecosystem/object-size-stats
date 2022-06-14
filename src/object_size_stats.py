@@ -1,5 +1,5 @@
 import os
-import supervisely_lib as sly
+import supervisely as sly
 import random
 from collections import defaultdict
 import json
@@ -7,8 +7,9 @@ import plotly.graph_objects as go
 from statistics import mean
 import pandas as pd
 import plotly.express as px
+from supervisely.app.v1.app_service import AppService
 
-my_app = sly.AppService()
+my_app: AppService = AppService()
 
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
