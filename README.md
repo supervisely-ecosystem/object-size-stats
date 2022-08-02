@@ -1,6 +1,6 @@
 <div align="center" markdown> 
 
-<img src="https://i.imgur.com/NJzq6OM.png"/>
+<img src="https://user-images.githubusercontent.com/48245050/182379251-0f1d39ef-eaae-42f6-888f-ff00a38eba1e.png"/>
 
 # Object Size Stats
   
