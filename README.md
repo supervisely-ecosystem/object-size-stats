@@ -1,6 +1,7 @@
 <div align="center" markdown> 
 
-<img src="https://user-images.githubusercontent.com/48245050/182379251-0f1d39ef-eaae-42f6-888f-ff00a38eba1e.png"/>
+
+<img src="https://user-images.githubusercontent.com/106374579/183635170-11b781f3-b66f-42e0-8173-c2c7c52d9e14.png"/>
 
 # Object Size Stats
   
