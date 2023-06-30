@@ -25,7 +25,7 @@ Data Exploration Tools provide deep understanding of your data and are crucial f
 
 This app generates report with detailed statistics for objects **(`Bitmap` / `Rectangle` / `Polygon`, objects of other shapes are ignored)** in images project. It allows to see big picture as well as shed light on hidden patterns and edge cases (see <a href="#how-to-use">How to use</a> section). 
 
-<img src="https://media.giphy.com/media/7H3Xx4sMmmnjHT6aLv/giphy.gif" width="600"/>
+<img src="media/ov.gif" width="600"/>
 
 
 ## How To Run
@@ -34,20 +34,20 @@ This app generates report with detailed statistics for objects **(`Bitmap` / `Re
 
 Go to "Context Menu" (images project or dataset) -> "Report" -> "Object Size Stats"
 
-<img src="https://i.imgur.com/pY9NTHW.png" width="600"/>
+<img src="media/htr1.png" width="600"/>
 
 ### Step 2: Configure running settings
 
 If number of objects in project is huge, define random sample (%). Subset stats is meant to be an unbiased representation of entire data and will be calculated much faster. Choose the percentage of images that should be randomly sampled. By default all images will be used. And then press "Run" button. In advanced settings you can change agent that will host the app and change version (latest available version is used by default).
 
-<img src="https://i.imgur.com/4wZvTLQ.png" width="400"/>
+<img src="media/htr2.png" width="400"/>
 
 
 ### Step 3:  Open app
 
 Once app is started, new task appear in workspace tasks. Monitor progress from both "Tasks" list and from application page. To open report in a new tab click "Open" button. 
 
-<img src="https://i.imgur.com/VBRYrHP.png"/>
+<img src="media/htr3.png"/>
 
 ### Step 4: App shuts down automatically
 
@@ -57,12 +57,12 @@ Even if app is finished, you can always use it as a history: open it from tasks 
 ## Details
 
 ### Input card
-<img src="https://i.imgur.com/deOfZvP.png" width="400"/>
+<img src="media/d1.png" width="400"/>
 
 Shows input project (clickable), sample percent that user defined at start and the number of images that used in report calculation.
 
 ### Output card
-<img src="https://i.imgur.com/R5L3N3U.png" width="400"/>
+<img src="media/d2.png" width="400"/>
 
 Shows progress bar and then the path to the saved report in `Files`. So you can open it later.  App saves resulting report to "Files": `/reports/objects_stats/{USER_LOGIN}/{WORKSPACE_NAME}/{PROJECT_NAME}.lnk`. 
 
@@ -72,7 +72,7 @@ To open report file from `Files` use "Right mouse click" -> "Open".
 
 Size properties for every object
 
-<img src="https://i.imgur.com/KMMWBr7.png"/>
+<img src="media/d3.png"/>
 
 Columns:
 * `OBJECT_ID` - object id
@@ -91,9 +91,9 @@ Columns:
 
 Properties of object (in data sample) for every class. If sample == 100% then all objects are processed. Use horizontal scroll to see all columns.
 
-<img src="https://i.imgur.com/oYeg6LU.png"/>
+<img src="media/d4.png"/>
 
----<img src="https://media.giphy.com/media/RzVJXnijKWwYzONe57/giphy.gif"/>
+---<img src="media/d5.gif"/>
 
 
 Columns:
@@ -120,20 +120,20 @@ Columns:
 Histograms shows distributions for all classes at once. Also you can double-click to class to hide other classes except this one. Or you can select several classes to compare their distributions. 
 
 Height (in px) distribution for all classes:
-<img src="https://i.imgur.com/AFX5KVX.png"/>
+<img src="media/d6.png"/>
 
 Height (in px) distribution for single class:
-<img src="https://i.imgur.com/zhAG0t6.png"/>
+<img src="media/d7.png"/>
 
 Width (in px) distribution for all classes:
-<img src="https://i.imgur.com/MzTNrZu.png"/>
+<img src="media/d8.png"/>
 
 Width (in px) distribution for single class:
-<img src="https://i.imgur.com/XV2RhLU.png"/>
+<img src="media/d9.png"/>
 
 
 Area (in %) distribution for all classes:
-<img src="https://i.imgur.com/MzTNrZu.png"/>
+<img src="media/d10.png"/>
 
 Area (in %) distribution for single class:
-<img src="https://i.imgur.com/z1qJQlo.png"/>
+<img src="media/d11.png"/>
