@@ -206,7 +206,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
                 table.append([class_name, v])
         df = pd.DataFrame(table, columns=["class", name])
         if df.empty:
-            df = {"class": [], name: []}
+            return None
         hist = px.histogram(df, x=name, color="class")
         return hist
 
@@ -227,11 +227,18 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     file_info = api.file.upload(TEAM_ID, local_path, remote_path)
     report_url = api.file.get_url(file_info.id)
 
+    if hist_height is not None:
+        hist_height = json.loads(hist_height.to_json())
+    if hist_width is not None:
+        hist_width = json.loads(hist_width.to_json())
+    if hist_area is not None:
+        hist_area = json.loads(hist_area.to_json())
+
     fields = [
         {"field": "data.overviewTable", "payload": overviewTable},
-        {"field": "data.histHeight", "payload": json.loads(hist_height.to_json())},
-        {"field": "data.histWidth", "payload": json.loads(hist_width.to_json())},
-        {"field": "data.histArea", "payload": json.loads(hist_area.to_json())},
+        {"field": "data.histHeight", "payload": hist_height},
+        {"field": "data.histWidth", "payload": hist_width},
+        {"field": "data.histArea", "payload": hist_area},
         {"field": "data.loading0", "payload": False},
         {"field": "data.loading1", "payload": False},
         {"field": "data.loading2", "payload": False},
