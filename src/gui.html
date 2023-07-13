@@ -32,6 +32,7 @@
     </sly-card>
 
     <sly-card title="Object Overview for every class"
+              v-if="data.histHeight && data.histWidth && data.histArea"
               subtitle="Summary statistics of object sizes for all classes"
               style="margin-top: 15px; min-height: 200px;">
         <sly-table v-loading="data.loading0"
