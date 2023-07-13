@@ -98,6 +98,11 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         class_names.append(obj_class.name)
         class_colors.append(obj_class.color)
 
+    if len(class_names) == 0 or len(class_colors) == 0:
+        sly.logger.warn("""There are no classes with bitmap, rectangle, or polygon geometry in the project.
+Classes with other geometry types can not be used for building histograms.
+Therefore, empty histograms will be hidden in the interface.""")
+
     table_columns = ["object_id", "class", "image", "dataset", "image size (hw)",
                      "h (px)", "h (%)", "w (px)", "w (%)", "area (px)", "area (%)"]
     api.task.set_field(task_id, "data.table.columns", table_columns)
@@ -201,6 +206,8 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
             for v in class2values[class_name]:
                 table.append([class_name, v])
         df = pd.DataFrame(table, columns=["class", name])
+        if df.empty:
+            return None
         hist = px.histogram(df, x=name, color="class")
         return hist
 
@@ -221,11 +228,18 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
     file_info = api.file.upload(TEAM_ID, local_path, remote_path)
     report_url = api.file.get_url(file_info.id)
 
+    if hist_height is not None:
+        hist_height = json.loads(hist_height.to_json())
+    if hist_width is not None:
+        hist_width = json.loads(hist_width.to_json())
+    if hist_area is not None:
+        hist_area = json.loads(hist_area.to_json())
+
     fields = [
         {"field": "data.overviewTable", "payload": overviewTable},
-        {"field": "data.histHeight", "payload": json.loads(hist_height.to_json())},
-        {"field": "data.histWidth", "payload": json.loads(hist_width.to_json())},
-        {"field": "data.histArea", "payload": json.loads(hist_area.to_json())},
+        {"field": "data.histHeight", "payload": hist_height},
+        {"field": "data.histWidth", "payload": hist_width},
+        {"field": "data.histArea", "payload": hist_area},
         {"field": "data.loading0", "payload": False},
         {"field": "data.loading1", "payload": False},
         {"field": "data.loading2", "payload": False},

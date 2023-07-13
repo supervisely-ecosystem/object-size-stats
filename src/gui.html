@@ -32,6 +32,7 @@
     </sly-card>
 
     <sly-card title="Object Overview for every class"
+              v-if="data.histHeight && data.histWidth && data.histArea"
               subtitle="Summary statistics of object sizes for all classes"
               style="margin-top: 15px; min-height: 200px;">
         <sly-table v-loading="data.loading0"
@@ -41,6 +42,7 @@
     </sly-card>
 
     <sly-card title="Height (px) distribution"
+              v-if="data.histHeight"
               subtitle="Histogram of objects heights for every class (in pixels)"
               style="height:100%; margin-top: 15px;">
         <sly-plotly v-loading="data.loading1"
@@ -50,6 +52,7 @@
     </sly-card>
 
     <sly-card title="Width (px) distribution"
+              v-if="data.histWidth"
               subtitle="Histogram of objects widths for every class (in pixels)"
               style="height:100%; margin-top: 15px;">
         <sly-plotly v-loading="data.loading2"
@@ -59,6 +62,7 @@
     </sly-card>
 
     <sly-card title="Area (%) distribution"
+              v-if="data.histArea"
               subtitle="Histogram of objects areas for every class (in percent)"
               style="height:100%; margin-top: 15px;">
         <sly-plotly v-loading="data.loading3"
