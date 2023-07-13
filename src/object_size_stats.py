@@ -205,7 +205,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
             for v in class2values[class_name]:
                 table.append([class_name, v])
         df = pd.DataFrame(table, columns=["class", name])
-        if df.empty():
+        if df.empty:
             df = {"class": [], name: []}
         hist = px.histogram(df, x=name, color="class")
         return hist
