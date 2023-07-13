@@ -98,6 +98,10 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         class_names.append(obj_class.name)
         class_colors.append(obj_class.color)
 
+    if len(class_names) == 0 or len(class_colors) == 0:
+        sly.logger.warn("There are no classes with bitmap, rectangle or polygon geometry in project")
+        sly.logger.warn("Classes with other geometry types can not be used for building histograms")
+
     table_columns = ["object_id", "class", "image", "dataset", "image size (hw)",
                      "h (px)", "h (%)", "w (px)", "w (%)", "area (px)", "area (%)"]
     api.task.set_field(task_id, "data.table.columns", table_columns)
@@ -200,8 +204,9 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         for (class_name, class_color) in zip(class_names, class_colors):
             for v in class2values[class_name]:
                 table.append([class_name, v])
-        sly.logger.info(f"Number of rows in {name} histogram - {len(table)}")
         df = pd.DataFrame(table, columns=["class", name])
+        if df.empty():
+            df = {"class": [], name: []}
         hist = px.histogram(df, x=name, color="class")
         return hist
 
