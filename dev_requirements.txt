@@ -1,1 +1,1 @@
-git+https://github.com/supervisely/supervisely.git@log-exception-details
+supervisely==6.72.55
