@@ -200,6 +200,7 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         for (class_name, class_color) in zip(class_names, class_colors):
             for v in class2values[class_name]:
                 table.append([class_name, v])
+        sly.logger.info(f"Number of rows in {name} histogram - {len(table)}")
         df = pd.DataFrame(table, columns=["class", name])
         hist = px.histogram(df, x=name, color="class")
         return hist
