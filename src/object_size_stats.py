@@ -99,8 +99,9 @@ def calc(api: sly.Api, task_id, context, state, app_logger):
         class_colors.append(obj_class.color)
 
     if len(class_names) == 0 or len(class_colors) == 0:
-        sly.logger.warn("There are no classes with bitmap, rectangle or polygon geometry in project")
-        sly.logger.warn("Classes with other geometry types can not be used for building histograms")
+        sly.logger.warn("""
+There are no classes with bitmap, rectangle or polygon geometry in the project.
+Classes with other geometry types can not be used for building histograms.""")
 
     table_columns = ["object_id", "class", "image", "dataset", "image size (hw)",
                      "h (px)", "h (%)", "w (px)", "w (%)", "area (px)", "area (%)"]
