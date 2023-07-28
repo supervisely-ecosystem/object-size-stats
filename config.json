@@ -1,32 +1,32 @@
 {
-  "name": "Object Size Stats",
-  "type": "app",
-  "categories": [
-    "images",
-    "visualization",
-    "exploration",
-    "statistics",
-    "visualization stats"
-  ],
-  "description": "Detailed statistics and distribution of object sizes (width, height, area)",
-  "docker_image": "supervisely/base-py-sdk:6.72.55",
-  "instance_version": "6.4.57",
-  "main_script": "src/object_size_stats.py",
-  "modal_template": "src/modal.html",
-  "modal_template_state": {
-    "samplePercent": 25
-  },
-  "gui_template": "src/gui.html",
-  "task_location": "workspace_tasks",
-  "isolate": true,
-  "context_menu": {
-    "target": [
-      "images_project",
-      "images_dataset"
+    "name": "Object Size Stats",
+    "type": "app",
+    "categories": [
+        "images",
+        "visualization",
+        "exploration",
+        "statistics",
+        "visualization stats"
     ],
-    "context_root": "Report"
-  },
-  "icon": "https://i.imgur.com/4gNHwaq.png",
-  "icon_background": "#FFFFFF",
-  "poster": "https://user-images.githubusercontent.com/106374579/183635170-11b781f3-b66f-42e0-8173-c2c7c52d9e14.png"
+    "description": "Detailed statistics and distribution of object sizes (width, height, area)",
+    "docker_image": "supervisely/collaboration:0.0.1",
+    "instance_version": "6.4.57",
+    "main_script": "src/object_size_stats.py",
+    "modal_template": "src/modal.html",
+    "modal_template_state": {
+        "samplePercent": 25
+    },
+    "gui_template": "src/gui.html",
+    "task_location": "workspace_tasks",
+    "isolate": true,
+    "context_menu": {
+        "target": [
+            "images_project",
+            "images_dataset"
+        ],
+        "context_root": "Report"
+    },
+    "icon": "https://i.imgur.com/4gNHwaq.png",
+    "icon_background": "#FFFFFF",
+    "poster": "https://user-images.githubusercontent.com/106374579/183635170-11b781f3-b66f-42e0-8173-c2c7c52d9e14.png"
 }
