@@ -9,7 +9,7 @@
         "visualization stats"
     ],
     "description": "Detailed statistics and distribution of object sizes (width, height, area)",
-    "docker_image": "supervisely/visualization-stats:0.0.1",
+    "docker_image": "supervisely/visualization-stats:0.0.5",
     "instance_version": "6.4.57",
     "main_script": "src/object_size_stats.py",
     "modal_template": "src/modal.html",
